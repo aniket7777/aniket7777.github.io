@@ -542,7 +542,7 @@ void main(){
   var ptrW = 0, hover = 0, time = 0, swayTime = 0, shift = 0, grainTime = 0, introClock = reduce ? 1 : 0, raf = 0, last = 0, visible = true;
   var colorStops = prepStops(S.gradientColors), lightRGB = hexToRGB(S.lightColor), lastShow = '', drawnOpen = false, zoomClock = reduce ? 1 : 0, loadZoom = 1, ZOOM_SECONDS = 2.2;
   /* Tunables (the configurator writes these through window.__tune). speed 1.25 = 25% faster than the first timed build. */
-  var TUNE = { speed: 1.25, openAt: 0.3, closeAt: 0.6, catchUp: true, sceneZoom: 0.08, loadZoom: 0.08, hoverDim: 0.6, shield: 0.5, shieldArea: 'buttons' };
+  var TUNE = { speed: 1.25, openAt: 0.3, closeAt: 0.6, catchUp: true, sceneZoom: 0.08, loadZoom: 0.08, hoverDim: 0.6, shield: 0.5, shieldArea: 'copy' };
   var btnHover = false, btnW = 0, shieldRect = { x: 0, y: 0, rx: 1, ry: 1 }, shieldVis = 1;
   window.__tune = function (o) {
     for (var k in o) { if (k in TUNE) TUNE[k] = o[k]; else if (k in S) S[k] = o[k]; }
