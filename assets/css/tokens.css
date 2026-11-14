@@ -1,0 +1,75 @@
+/* =====================================================================
+   Ember design tokens, v1.0
+   Source of truth for colour across the site. Documented in
+   docs/design-system/colour.md (roles, rules, contrast audit).
+
+   Three layers. Components only ever read layer 2.
+   1. Primitives: the raw scales (ink, ember). Never used directly in components.
+   2. Semantic roles: what a colour is FOR (text, surface, accent...).
+   3. Effect: the hero shader's colour stops. Used by the Ember Blinds hero only.
+   ===================================================================== */
+:root {
+  /* ---------- 1. Primitives ---------- */
+  /* Ink: warm neutrals, interpolated in OKLab from the hero's black to its off-white */
+  --ink-950: #050302;
+  --ink-900: #0f0b08;
+  --ink-850: #17120f;
+  --ink-800: #211c19;
+  --ink-700: #3b3531;
+  --ink-600: #59524e;
+  --ink-500: #776f6a;
+  --ink-400: #948b85;
+  --ink-300: #b1a7a1;
+  --ink-200: #cdc2bb;
+  --ink-100: #e4d8d1;
+  --ink-50:  #fbefe7;
+
+  /* Ember: the hero glow, anchored on its three stops (200, 500, 800) */
+  --ember-50:  #fff4ec;
+  --ember-100: #ffe5d2;
+  --ember-200: #ffc79c;
+  --ember-300: #fca97a;
+  --ember-400: #f78a56;
+  --ember-500: #f0682b;
+  --ember-600: #c84f1f;
+  --ember-700: #a13714;
+  --ember-800: #7c1f09;
+  --ember-900: #441205;
+  --ember-950: #2a0b03;
+
+  /* ---------- 2. Semantic roles ---------- */
+  /* Surfaces */
+  --color-bg: var(--ink-950);              /* the page */
+  --color-surface: var(--ink-900);         /* cards, panels */
+  --color-surface-raised: var(--ink-850);  /* tags, chips, anything sitting on a card */
+  --color-border: var(--ink-800);          /* hairlines, dividers */
+  --color-border-strong: var(--ink-700);   /* card and control outlines */
+
+  /* Text */
+  --color-text: var(--ink-50);             /* headings, body copy */
+  --color-text-secondary: var(--ink-300);  /* supporting copy, nav at rest */
+  --color-text-tertiary: var(--ink-400);   /* meta: kickers, numbers, footer */
+  --color-text-disabled: var(--ink-500);   /* disabled only; never the sole cue */
+
+  /* Action: ember means "you can act on this, or it is responding to you" */
+  --color-accent: var(--ember-500);        /* primary button, active item */
+  --color-accent-hover: var(--ember-400);  /* hover text and hover fill */
+  --color-accent-pressed: var(--ember-600);/* pressed fill */
+  --color-on-accent: var(--ink-950);       /* label on an ember fill */
+  --color-focus: var(--ember-300);         /* keyboard focus ring */
+  --color-link-underline: var(--ember-700);/* link underline at rest */
+  --color-glow: var(--ember-500);          /* card edge light, kicker rule */
+  --color-selection-bg: var(--ember-800);
+  --color-selection-text: var(--ink-50);
+
+  /* ---------- 3. Effect (Ember Blinds hero only) ---------- */
+  --effect-peak: var(--ember-200);
+  --effect-glow: var(--ember-500);
+  --effect-deep: var(--ember-800);
+  --effect-base: var(--ink-950);
+
+  /* ---------- Motion for colour changes ---------- */
+  --dur-state: 160ms;   /* hover, press */
+  --dur-reveal: 450ms;  /* glow fading in on cards */
+  --ease-state: cubic-bezier(.2, .7, .2, 1);
+}
