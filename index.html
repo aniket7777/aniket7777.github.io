@@ -77,12 +77,19 @@ a { color: inherit; }
 .btn .arr { display: inline-block; transition: transform var(--dur-state) var(--ease-state); }
 .btn:hover .arr, .case:hover .arr { transform: translateX(3px); }
 .btn-primary:hover .arr.down { transform: translateY(3px); }
-.mag-in { display: inline-flex; align-items: center; gap: inherit; text-decoration: inherit; pointer-events: none; }
 
 /* ---------- Hero: Ember Blinds ---------- */
 .hero { position: relative; height: 100vh; height: 100svh; min-height: 560px; overflow: hidden; display: grid; grid-template-rows: auto 1fr auto; isolation: isolate; background: var(--effect-base); }
-#cv { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 0; touch-action: pan-y; }
-.hero.no-gl { background: var(--effect-base) url(assets/img/hero-still.jpg) center / cover no-repeat; }
+#cv, #cv2 { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 0; touch-action: pan-y; }
+/* the hero's blinds dissolve into the page: full strength to about half way, then ease to zero at the bottom edge */
+#cv { -webkit-mask: linear-gradient(180deg, #000 0%, #000 50%, rgba(0,0,0,.82) 62%, rgba(0,0,0,.5) 76%, rgba(0,0,0,.2) 89%, transparent 100%);
+  mask: linear-gradient(180deg, #000 0%, #000 50%, rgba(0,0,0,.82) 62%, rgba(0,0,0,.5) 76%, rgba(0,0,0,.2) 89%, transparent 100%); }
+/* the closing band is its mirror: zero at the top, full strength at the bottom of the page */
+#cv2 { -webkit-mask: linear-gradient(0deg, #000 0%, #000 34%, rgba(0,0,0,.82) 48%, rgba(0,0,0,.5) 64%, rgba(0,0,0,.2) 82%, transparent 100%);
+  mask: linear-gradient(0deg, #000 0%, #000 34%, rgba(0,0,0,.82) 48%, rgba(0,0,0,.5) 64%, rgba(0,0,0,.2) 82%, transparent 100%); }
+.hero.no-gl { background: linear-gradient(180deg, transparent 50%, var(--color-bg) 100%), var(--effect-base) url(assets/img/hero-still.jpg) center / cover no-repeat; }
+.closing.no-gl { background: linear-gradient(0deg, transparent 34%, var(--color-bg) 100%), var(--effect-base) url(assets/img/hero-still.jpg) center / cover no-repeat; }
+.hero { background: var(--color-bg); }
 .hero > nav, .hero > .center, .hero > .foot { position: relative; z-index: 1; }
 nav.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; max-width: var(--page-max); margin: 0 auto; padding: 22px var(--page-margin); }
 .mark { font-weight: var(--fw-medium); font-size: var(--fs-button); color: var(--color-text); text-decoration: none; min-height: 44px; display: inline-flex; align-items: center;
@@ -162,7 +169,11 @@ h2 { margin: 0; font-family: var(--font-display); font-weight: var(--fw-display)
 .contact { text-align: center; display: grid; justify-items: center; gap: 22px; }
 .contact h2 { font-size: var(--fs-display-2); max-width: 14ch; }
 .contact .row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px 22px; }
-footer.site { border-top: 1px solid var(--color-border); padding: 26px 0 34px; font-size: var(--fs-small); color: var(--color-text-tertiary); }
+.closing { position: relative; isolation: isolate; min-height: 100vh; min-height: 100svh; display: grid; grid-template-rows: 1fr auto; background: var(--color-bg); overflow: hidden; }
+.closing > section, .closing > footer { position: relative; z-index: 1; }
+.closing > section { align-self: start; padding-top: calc(var(--section-space) * .8); }
+.closing h2, .closing .kicker { text-shadow: 0 0 22px var(--color-bg), 0 0 8px var(--color-bg); }
+footer.site { padding: 26px 0 34px; font-size: var(--fs-small); color: var(--color-text); text-shadow: 0 0 14px var(--color-bg), 0 0 5px var(--color-bg), 0 1px 2px var(--color-bg); }
 footer.site .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
 
 /* headings are hidden only until SplitText has split them into masked lines */
@@ -196,16 +207,16 @@ h1 .line-mask, h2 .line-mask { padding-bottom: var(--mask-room); margin-bottom: 
 <header class="hero" aria-labelledby="hero-h">
   <canvas id="cv" aria-hidden="true"></canvas>
   <nav class="top" aria-label="Main">
-    <a class="mark" href="#" data-magnetic="0.15">Aniket Shrivastava</a>
-    <div class="links"><a href="#work" data-magnetic="0.3">Work</a><a href="#about" data-magnetic="0.3">About</a><a href="#contact" data-magnetic="0.3">Contact</a></div>
+    <a class="mark" href="#">Aniket Shrivastava</a>
+    <div class="links"><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></div>
   </nav>
   <div class="center">
     <div class="copy">
       <h1 id="hero-h">Designing the moments people hand over money and identity.</h1>
       <p class="sub">Senior experience designer across banking and wealth. Six years in product design, including the team behind Jio.com and its 2.4M daily users.</p>
       <div class="ctas">
-        <a href="#work" class="btn btn-primary" data-magnetic="0.25">Selected work <span class="arr down" aria-hidden="true">&darr;</span></a>
-        <a href="#contact" class="btn btn-ghost" data-magnetic="0.25">Get in touch</a>
+        <a href="#work" class="btn btn-primary">Selected work <span class="arr down" aria-hidden="true">&darr;</span></a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
       </div>
     </div>
   </div>
@@ -268,20 +279,21 @@ h1 .line-mask, h2 .line-mask { padding-bottom: var(--mask-room); margin-bottom: 
     </div>
   </section>
 
-  <div class="wrap"><span class="slat-rule" aria-hidden="true"></span></div>
-
+</main>
+<div class="closing">
+  <canvas id="cv2" aria-hidden="true"></canvas>
   <section class="block" id="contact">
     <div class="wrap contact">
       <p class="kicker">Contact</p>
       <h2>Let&rsquo;s find the friction.</h2>
       <div class="row">
-        <a href="#" class="btn btn-primary" data-magnetic>Email me <span class="arr" aria-hidden="true">&rarr;</span></a>
-        <a href="#" class="btn btn-ghost" data-magnetic>LinkedIn</a>
+        <a href="#" class="btn btn-primary">Email me <span class="arr" aria-hidden="true">&rarr;</span></a>
+        <a href="#" class="btn btn-ghost">LinkedIn</a>
       </div>
     </div>
   </section>
-</main>
-<footer class="site"><div class="wrap"><span>Aniket, Pune</span><span>Homepage sample, placeholder content</span></div></footer>
+  <footer class="site"><div class="wrap"><span>Aniket, Pune</span><span>Homepage sample, placeholder content</span></div></footer>
+</div>
 
 <script>
 /* =================== Ember Blinds hero ===================
@@ -289,8 +301,8 @@ h1 .line-mask, h2 .line-mask { padding-bottom: var(--mask-room); margin-bottom: 
    The cursor leaves a wide, soft trail of heat behind it that spreads, rises and fades; the slats open slightly where it is warm.
    No movement, no heat, so there is never a bright point under the pointer. A slow ember wanders when nobody is moving.
    The loop only runs while the hero is on screen. */
-(function () {
-  var hero = document.querySelector('.hero'), canvas = document.getElementById('cv');
+function emberBlinds(hero, canvas) {
+  if (!hero || !canvas) return;
   var SCHEMA = { count: [1, 40, 21], minWidth: [0, 200, 58], angle: [-90, 90, 48], persp: [-1, 1, -0.45], curves: [0, 30, 6.4], freq: [0.5, 20, 6], drift: [0, 2, 0.42],
     irregular: [0, 1, 0.11], profile: [-1, 1, 0], crease: [0, 1.5, 0.87], seam: [0, 1, 0.12], relief: [0, 1, 1], shine: [0, 2, 0.31], sway: [0, 1, 0.4], bend: [0, 3, 0.6],
     tiltHeat: [0, 1.5, 0.76], size: [0, 1, 0.6], amount: [0, 2, 1], spread: [0, 1, 0.6], linger: [0, 1, 0.65], rise: [0, 1.5, 0.35], lag: [0, 1, 0.5], idle: [0, 1, 0.6],
@@ -471,7 +483,9 @@ void main() {
   document.addEventListener('visibilitychange', wake);
   if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { onScreen = es[0].isIntersecting; wake(); }).observe(hero);
   resize(); wake();
-})();
+}
+emberBlinds(document.querySelector('.hero'), document.getElementById('cv'));
+emberBlinds(document.querySelector('.closing'), document.getElementById('cv2'));
 
 /* Slat motif: the hero's slat line, drawn once as static grey strokes, at the same angle and curve */
 (function () {
@@ -519,43 +533,13 @@ void main() {
   var io = new IntersectionObserver(function (es) { es.forEach(function (e, i) { if (e.isIntersecting) { var el = e.target; setTimeout(function () { el.classList.add('in'); }, 60 * (i % 4)); io.unobserve(el); } }); }, { rootMargin: '0px 0px -8% 0px' });
   els.forEach(function (e) { io.observe(e); });
 })();
-(function () {
-  /* Magnetic buttons: within a short field each [data-magnetic] element leans toward the cursor, its label a little further. Fine pointers only. */
-  var ok = false; try { ok = matchMedia('(hover: hover) and (pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
-  if (!ok) return;
-  var items = [].slice.call(document.querySelectorAll('[data-magnetic]')).map(function (el) {
-    var inner = document.createElement('span'); inner.className = 'mag-in';
-    while (el.firstChild) inner.appendChild(el.firstChild); el.appendChild(inner);
-    return { el: el, inner: inner, pull: parseFloat(el.getAttribute('data-magnetic')) || 0.4, x: 0, y: 0, tx: 0, ty: 0 };
-  });
-  var px = -1e5, py = -1e5, raf = 0, last = 0, MAX = 14, FIELD = 60, DEPTH = 0.35;
-  function tick(now) {
-    raf = 0; var dt = last ? Math.min((now - last) / 1000, 0.05) : 1 / 60; last = now;
-    var k = 1 - Math.exp(-dt / 0.11), moving = false;
-    items.forEach(function (it) {
-      var r = it.el.getBoundingClientRect(), cx = r.left + r.width / 2 - it.x, cy = r.top + r.height / 2 - it.y;
-      var dx = px - cx, dy = py - cy, reach = Math.max(r.width, r.height) / 2 + FIELD, d = Math.sqrt(dx * dx + dy * dy);
-      var w = 1 - Math.min(1, Math.max(0, (d - reach * 0.55) / (reach * 0.45))); w = w * w * (3 - 2 * w);
-      it.tx = Math.max(-MAX, Math.min(MAX, dx * it.pull)) * w; it.ty = Math.max(-MAX, Math.min(MAX, dy * it.pull)) * w;
-      it.x += (it.tx - it.x) * k; it.y += (it.ty - it.y) * k;
-      if (Math.abs(it.tx - it.x) > 0.05 || Math.abs(it.ty - it.y) > 0.05) moving = true; else { it.x = it.tx; it.y = it.ty; }
-      it.el.style.translate = it.x.toFixed(2) + 'px ' + it.y.toFixed(2) + 'px';
-      it.inner.style.translate = (it.x * DEPTH).toFixed(2) + 'px ' + (it.y * DEPTH).toFixed(2) + 'px';
-    });
-    if (moving) raf = requestAnimationFrame(tick); else last = 0;
-  }
-  function kick() { if (!raf) raf = requestAnimationFrame(tick); }
-  addEventListener('pointermove', function (e) { if (e.pointerType !== 'mouse' && e.pointerType !== 'pen') return; px = e.clientX; py = e.clientY; kick(); }, { passive: true });
-  addEventListener('scroll', kick, { passive: true });
-  document.documentElement.addEventListener('pointerleave', function () { px = py = -1e5; kick(); });
-})();
 document.addEventListener('click', function (e) {
   var a = e.target.closest && e.target.closest('a[href^="#"]'); if (!a) return;
   var id = a.getAttribute('href').slice(1); if (!id) return;
   var el = document.getElementById(id); if (!el) return;
   e.preventDefault();
   var rm = false; try { rm = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e2) {}
-  scrollTo({ top: id === 'contact' ? document.documentElement.scrollHeight - innerHeight : el.getBoundingClientRect().top + scrollY, behavior: rm ? 'auto' : 'smooth' });
+  scrollTo({ top: el.getBoundingClientRect().top + scrollY, behavior: rm ? 'auto' : 'smooth' });
 });
 </script>
 <script defer src="assets/js/gsap.min.js"></script>
