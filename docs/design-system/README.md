@@ -7,7 +7,8 @@ The working design system for this site. Start here.
 | Colour | [colour.md](colour.md) | v1.0 |
 | Tokens (CSS) | [../../assets/css/tokens.css](../../assets/css/tokens.css) | v1.0 |
 | Tokens (JSON) | [tokens.json](tokens.json) | v1.0 |
-| Type and grid | tokens live in `index.html` `:root` for now | to be moved into tokens.css |
+| Type | [type.md](type.md) | v1.1 |
+| Grid and space | `assets/css/tokens.css`, section 5 | v1.1 |
 | Hero effect | Ember Blinds, settings in `tokens.json` under `effect` | v1.0 |
 
 ## Principles

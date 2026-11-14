@@ -7,13 +7,13 @@ Static site, no build step. Open `index.html` in a browser to preview.
 - `assets/css/tokens.css`: colour tokens, the single source of truth for colour
 - `docs/design-system`: design system docs (start with `README.md`, then `colour.md`)
 - `assets/js`: GSAP 3.13 (ScrollTrigger, SplitText), served with the site
-- `assets/fonts`: Inter Tight and JetBrains Mono (latin), served with the site
+- `assets/fonts`: Instrument Sans (variable, OFL) and JetBrains Mono (latin), served with the site
 - `assets/img`: favicon, share image (`og.jpg`), no-WebGL fallback (`hero-still.jpg`)
 - `404.html`: shown for any missing page
 
 ## Editing
 - Colour: `assets/css/tokens.css` only. Components read the semantic `--color-*` roles; see `docs/design-system/colour.md` for the rules and the contrast audit.
-- Type and grid: the `:root` block at the top of `index.html`.
+- Type, grid and space: `assets/css/tokens.css` (sections 4 and 5); rules in `docs/design-system/type.md`.
 - Hero effect: the `effect-settings` JSON in `index.html`. Paste the output of the Ember Blinds configurator "Copy settings (JSON)" as-is; values are clamped to safe ranges.
 
 ## Before public launch
