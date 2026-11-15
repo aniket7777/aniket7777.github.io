@@ -6,13 +6,14 @@
 <title>Aniket Shrivastava, product designer</title>
 <link rel="preload" href="assets/fonts/instrument-sans-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/site.css">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <meta name="description" content="Aniket Shrivastava designs the moments people hand over money and identity. Experience designer across banking and wealth, Pune.">
 <meta name="robots" content="noindex, nofollow"><!-- PREVIEW: remove this line at public launch -->
 <meta name="theme-color" content="#050302">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Aniket Shrivastava, product designer">
-<meta property="og:description" content="Designing the moments people hand over money and identity, across banking and wealth.">
+<meta property="og:description" content="Aniket Shrivastava designs the moments people hand over money and identity. Experience designer across banking and wealth, Pune.">
 <meta property="og:image" content="assets/img/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <script>
@@ -21,159 +22,54 @@
   var d = document.documentElement; d.classList.add('split-ready');
   setTimeout(function () { if (!window.SplitText) d.classList.remove('split-ready'); }, 3000); })();
 </script>
-<style>
-@font-face { font-family: "Instrument Sans"; font-style: normal; font-weight: 400 700; font-stretch: 75% 100%; font-display: swap; src: url(assets/fonts/instrument-sans-latin-wdth-normal.woff2) format("woff2-variations"), url(assets/fonts/instrument-sans-latin-wdth-normal.woff2) format("woff2"); }
-@font-face { font-family: "JetBrains Mono"; font-style: normal; font-weight: 400; font-display: swap; src: url(assets/fonts/jetbrains-mono-latin-400-normal.woff2) format("woff2"); }
-@font-face { font-family: "JetBrains Mono"; font-style: normal; font-weight: 500; font-display: swap; src: url(assets/fonts/jetbrains-mono-latin-500-normal.woff2) format("woff2"); }
-:root {
-  /* Colour, type, grid and space all live in assets/css/tokens.css. */
-  color-scheme: dark;
-}
-* { box-sizing: border-box; }
-html { background: var(--color-bg); }
-body { margin: 0; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); font-weight: var(--fw-body); -webkit-font-smoothing: antialiased; }
-::selection { background: var(--color-selection-bg); color: var(--color-selection-text); }
-:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; border-radius: 6px; }
-a { color: inherit; }
-.wrap { max-width: var(--page-max); margin: 0 auto; padding: 0 var(--page-margin); }
-
-/* ---------- Links and buttons: rest is neutral, every state is ember, and every state also changes shape ---------- */
-.link { color: var(--color-text); text-decoration: underline; text-decoration-color: var(--color-link-underline); text-decoration-thickness: 1px; text-underline-offset: .3em;
-  transition: color var(--dur-state) var(--ease-state), text-decoration-color var(--dur-state) var(--ease-state); }
-.link:hover { color: var(--color-accent-hover); text-decoration-color: var(--color-accent-hover); }
-.btn { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 24px; border-radius: 999px; font-size: var(--fs-button); font-weight: var(--fw-strong); text-decoration: none;
-  transition: background var(--dur-state) var(--ease-state), color var(--dur-state) var(--ease-state), transform var(--dur-state) var(--ease-state), box-shadow var(--dur-state) var(--ease-state); }
-.btn-primary { background: var(--color-accent); color: var(--color-on-accent); box-shadow: 0 12px 32px -14px color-mix(in srgb, var(--color-accent) 80%, transparent); }
-.btn-primary:hover { background: var(--color-accent-hover); transform: translateY(-1px); }
-.btn-primary:active { background: var(--color-accent-pressed); transform: translateY(0); box-shadow: none; }
-.btn-ghost { color: var(--color-text); padding: 0 6px; text-decoration: underline; text-decoration-color: var(--color-link-underline); text-underline-offset: .3em; font-weight: var(--fw-medium); }
-.btn-ghost:hover { color: var(--color-accent-hover); text-decoration-color: var(--color-accent-hover); }
-.btn .arr { display: inline-block; transition: transform var(--dur-state) var(--ease-state); }
-.btn:hover .arr, .case:hover .arr { transform: translateX(3px); }
-.btn-primary:hover .arr.down { transform: translateY(3px); }
-
-/* ---------- Hero: Ember Blinds ---------- */
-.hero { position: relative; height: 100vh; height: 100svh; min-height: 560px; overflow: hidden; display: grid; grid-template-rows: auto 1fr auto; isolation: isolate; background: var(--effect-base); }
-#cv, #cv2 { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 0; touch-action: pan-y; }
-/* the hero's blinds dissolve into the page: full strength to about half way, then ease to zero at the bottom edge */
-#cv { -webkit-mask: linear-gradient(180deg, #000 0%, #000 50%, rgba(0,0,0,.82) 62%, rgba(0,0,0,.5) 76%, rgba(0,0,0,.2) 89%, transparent 100%);
-  mask: linear-gradient(180deg, #000 0%, #000 50%, rgba(0,0,0,.82) 62%, rgba(0,0,0,.5) 76%, rgba(0,0,0,.2) 89%, transparent 100%); }
-/* the closing band is its mirror: zero at the top, full strength at the bottom of the page */
-#cv2 { -webkit-mask: linear-gradient(0deg, #000 0%, #000 34%, rgba(0,0,0,.82) 48%, rgba(0,0,0,.5) 64%, rgba(0,0,0,.2) 82%, transparent 100%);
-  mask: linear-gradient(0deg, #000 0%, #000 34%, rgba(0,0,0,.82) 48%, rgba(0,0,0,.5) 64%, rgba(0,0,0,.2) 82%, transparent 100%); }
-.hero.no-gl { background: linear-gradient(180deg, transparent 50%, var(--color-bg) 100%), var(--effect-base) url(assets/img/hero-still.jpg) center / cover no-repeat; }
-.closing.no-gl { background: linear-gradient(0deg, transparent 34%, var(--color-bg) 100%), var(--effect-base) url(assets/img/hero-still.jpg) center / cover no-repeat; }
-.hero { background: var(--color-bg); }
-.hero > nav, .hero > .center, .hero > .foot { position: relative; z-index: 1; }
-nav.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; max-width: var(--page-max); margin: 0 auto; padding: 22px var(--page-margin); }
-.mark { font-weight: var(--fw-medium); font-size: var(--fs-button); color: var(--color-text); text-decoration: none; min-height: 44px; display: inline-flex; align-items: center;
-  transition: color var(--dur-state) var(--ease-state); }
-.mark:hover { color: var(--color-accent-hover); }
-.links { display: flex; gap: clamp(14px, 3vw, 32px); }
-.links a { color: var(--color-text-secondary); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: .35em; font-size: var(--fs-button); min-height: 44px; display: inline-flex; align-items: center;
-  transition: color var(--dur-state) var(--ease-state), text-decoration-color var(--dur-state) var(--ease-state); }
-.links a:hover { color: var(--color-accent-hover); text-decoration-color: var(--color-accent-hover); }
-.center { display: grid; align-items: center; width: 100%; max-width: var(--page-max); margin: 0 auto; padding: 0 var(--page-margin); pointer-events: none; }
-.copy { width: 100%; max-width: 46rem; }
-.copy a { pointer-events: auto; }
-@keyframes rise { from { opacity: 0; transform: translateY(14px); } }
-.hero h1 { margin: 0; font-family: var(--font-display); font-weight: var(--fw-display); font-stretch: var(--wdth-display); font-size: var(--fs-display); line-height: var(--lh-display); letter-spacing: var(--ls-display); text-wrap: balance; max-width: 14ch; }
-.hero .sub { margin: 22px 0 0; max-width: 40ch; font-size: var(--fs-lead); line-height: 1.5; color: var(--color-text); text-shadow: 0 0 18px var(--color-bg), 0 0 6px var(--color-bg), 0 1px 2px var(--color-bg); animation: rise 1s .7s var(--ease-state) both; }
-.hero .ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin-top: 32px; animation: rise 1s .85s var(--ease-state) both; }
-.hero .btn-ghost { text-shadow: 0 0 14px var(--color-bg), 0 1px 2px var(--color-bg); }
-.foot { width: 100%; max-width: var(--page-max); margin: 0 auto; padding: 0 var(--page-margin) clamp(18px, 3.5vh, 36px); display: flex; justify-content: space-between; align-items: center; gap: 16px;
-  font-family: var(--font-mono); font-size: var(--fs-micro); letter-spacing: var(--ls-label); text-transform: uppercase; color: var(--color-text-tertiary); }
-.foot .hint-touch { display: none; }
-@media (hover: none) { .foot .hint-mouse { display: none; } .foot .hint-touch { display: inline; } }
-
-/* ---------- Slat motif: the hero's slat line, static and grey ---------- */
-.slat-rule { display: block; height: 56px; width: 100%; color: var(--color-border-strong); opacity: .9;
-  -webkit-mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
-.slat-rule svg, .shot svg { display: block; width: 100%; height: 100%; }
-
-/* ---------- Sections ---------- */
-section.block { position: relative; padding: var(--section-space) 0; }
-.kicker { display: inline-flex; align-items: center; gap: 12px; font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: var(--ls-label); text-transform: uppercase; color: var(--color-text-tertiary); margin: 0 0 22px; }
-.kicker::before { content: ''; width: 26px; height: 1px; background: var(--color-glow); }
-h2 { margin: 0; font-family: var(--font-display); font-weight: var(--fw-display); font-stretch: var(--wdth-heading); font-size: var(--fs-h2); line-height: var(--lh-heading); letter-spacing: var(--ls-heading); text-wrap: balance; max-width: 18ch; }
-.intro h2 { max-width: 22ch; }
-.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--col-gap); margin-top: 56px; border-top: 1px solid var(--color-border); padding-top: 28px; }
-.stat b { display: block; font-family: var(--font-display); font-weight: var(--fw-display); font-stretch: var(--wdth-heading); font-size: var(--fs-stat); letter-spacing: var(--ls-heading); }
-.stat span { font-size: var(--fs-small); color: var(--color-text-secondary); }
-
-/* Case cards: sticky stack; the ember edge light follows the cursor across every card's border */
-.stack { margin-top: 48px; position: relative; }
-.stack .case { position: sticky; top: calc(13vh + var(--i) * 16px); height: min(70vh, 600px); margin-bottom: 16vh; display: grid; grid-template-columns: var(--split); gap: var(--col-gap);
-  padding: clamp(20px, 2.6vw, 34px); border-radius: 26px; background: var(--color-surface); border: 1px solid var(--color-border-strong);
-  box-shadow: 0 -24px 60px -28px rgba(0,0,0,.95); transform-origin: 50% 0; will-change: transform; overflow: hidden; color: inherit; text-decoration: none; }
-.stack .case:last-child { margin-bottom: 4vh; }
-.case-copy { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: flex-end; gap: 14px; min-width: 0; }
-.case-copy .num { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: var(--ls-label); color: var(--color-text-tertiary); margin-bottom: auto; }
-.case h3 { margin: 0; font-size: var(--fs-h3); font-weight: var(--fw-strong); letter-spacing: var(--ls-title); line-height: var(--lh-title); }
-.case p { margin: 4px 0 0; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--color-text-secondary); max-width: 46ch; }
-.more { font-size: var(--fs-small); font-weight: var(--fw-medium); color: var(--color-text); display: inline-flex; gap: 6px; margin-top: 6px; text-decoration: underline; text-decoration-color: var(--color-link-underline); text-underline-offset: .3em;
-  transition: color var(--dur-state) var(--ease-state), text-decoration-color var(--dur-state) var(--ease-state); }
-.case:hover .more, .case:focus-visible .more { color: var(--color-accent-hover); text-decoration-color: var(--color-accent-hover); }
-.tags { display: flex; flex-wrap: wrap; gap: 8px; }
-.tags span { font-family: var(--font-mono); font-size: var(--fs-micro); letter-spacing: calc(var(--ls-label) * .5); text-transform: uppercase; padding: 6px 10px; border-radius: 999px; background: var(--color-surface-raised); border: 1px solid var(--color-border); color: var(--color-text-tertiary); }
-.dim { position: absolute; inset: 0; z-index: 5; background: var(--color-bg); opacity: 0; pointer-events: none; border-radius: inherit; }
-.case .shot { z-index: 2; height: 100%; min-height: 0; border-radius: 18px; border: 1px solid var(--color-border); background: var(--color-bg); position: relative; overflow: hidden; color: var(--color-border-strong);
-  transition: border-color var(--dur-reveal) var(--ease-state), color var(--dur-reveal) var(--ease-state); }
-.case .shot svg { position: absolute; inset: 0; }
-.case .shot::after { content: attr(data-label); position: absolute; left: 18px; bottom: 16px; font-family: var(--font-mono); font-size: var(--fs-micro); letter-spacing: var(--ls-label); text-transform: uppercase; color: var(--color-text-tertiary); }
-.case:hover .shot, .case.active .shot { border-color: var(--color-border-strong); color: var(--ink-600); }
-.case::before { content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 4; padding: 1.5px;
-  background: radial-gradient(380px circle at var(--x, 50%) var(--y, 50%), var(--color-glow), color-mix(in srgb, var(--color-glow) 28%, transparent) 40%, transparent 70%);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
-  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude;
-  opacity: 0; transition: opacity var(--dur-reveal) ease; }
-.stack.lit .case::before { opacity: 1; }
-.spot { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 1; opacity: 0; transition: opacity var(--dur-reveal) ease;
-  background: radial-gradient(520px circle at var(--x, 50%) var(--y, 50%), color-mix(in srgb, var(--color-glow) 12%, transparent), transparent 45%); }
-.case:hover .spot, .case.active .spot { opacity: 1; }
-
-.steps { list-style: none; margin: 48px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--color-border); }
-.steps li { padding: 28px 24px 0 0; }
-.steps .n { font-family: var(--font-mono); font-size: var(--fs-label); color: var(--color-text-tertiary); }
-.steps h3 { margin: 14px 0 8px; font-size: var(--fs-h4); font-weight: var(--fw-strong); }
-.steps p { margin: 0; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--color-text-secondary); }
-.about { display: grid; grid-template-columns: var(--split); gap: calc(var(--col-gap) * 1.8); align-items: center; }
-.portrait { aspect-ratio: 4 / 5; border-radius: 20px; background: var(--color-surface); border: 1px solid var(--color-border-strong); display: grid; place-items: center; font-family: var(--font-mono); font-size: var(--fs-micro); letter-spacing: var(--ls-label); text-transform: uppercase; color: var(--color-text-tertiary); }
-.about p { font-size: var(--fs-lead); line-height: calc(var(--lh-body) + .1); color: var(--color-text-secondary); margin: 20px 0 0; max-width: 52ch; }
-.contact { text-align: center; display: grid; justify-items: center; gap: 22px; }
-.contact h2 { font-size: var(--fs-display-2); font-stretch: var(--wdth-display); max-width: 12ch; }
-.contact .row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px 22px; }
-.closing { position: relative; isolation: isolate; min-height: 100vh; min-height: 100svh; display: grid; grid-template-rows: 1fr auto; background: var(--color-bg); overflow: hidden; }
-.closing > section, .closing > footer { position: relative; z-index: 1; }
-.closing > section { align-self: start; padding-top: calc(var(--section-space) * .8); }
-.closing h2, .closing .kicker { text-shadow: 0 0 22px var(--color-bg), 0 0 8px var(--color-bg); }
-footer.site { padding: 26px 0 34px; font-size: var(--fs-small); color: var(--color-text); text-shadow: 0 0 14px var(--color-bg), 0 0 5px var(--color-bg), 0 1px 2px var(--color-bg); }
-footer.site .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
-
-/* headings are hidden only until SplitText has split them into masked lines */
-.split-ready .hero h1, .split-ready main h2 { visibility: hidden; }
-h1 .line-mask, h2 .line-mask { padding-bottom: var(--mask-room); margin-bottom: calc(var(--mask-room) * -1); padding-top: .04em; margin-top: -.04em; }
-.reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
-.reveal.in { opacity: 1; transform: none; }
-.skip { position: fixed; left: 16px; top: 12px; z-index: 100; padding: 10px 16px; border-radius: 999px; background: var(--color-accent); color: var(--color-on-accent); font-weight: var(--fw-strong); text-decoration: none; transform: translateY(-160%); transition: transform .2s; }
-.skip:focus-visible { transform: none; }
-@media (max-width: 860px) { .stack .case { grid-template-columns: 1fr; grid-template-rows: auto 1fr; height: min(76svh, 640px); top: calc(10svh + var(--i) * 12px); } .case-copy .num { margin-bottom: 0; } .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } .about { grid-template-columns: 1fr; } .portrait { max-width: 320px; } }
-@media (max-width: 560px) { .stats { grid-template-columns: 1fr; } .steps { grid-template-columns: 1fr; } .links a:not(:last-child) { display: none; } .center { align-items: end; padding-bottom: 28px; } }
-@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } .btn, .btn .arr, .link { transition: none; } .btn-primary:hover { transform: none; } .hero .sub, .hero .ctas { animation: none; } .foot .hint-mouse, .foot .hint-touch { display: none !important; } }
-</style>
 </head>
 <body>
 <!-- ===== HERO EFFECT SETTINGS: Ember Blinds ===========================================
-     Paste the JSON from the Ember Blinds configurator "Copy settings (JSON)" here as-is.
+     Paste the JSON from the Ember Blinds configurator "Copy settings (JSON)" here as-is (the "phone" block is the touch-screen profile).
      Unknown keys are ignored and every value is clamped to a safe range, so a paste cannot break the page.
      Colours come from assets/css/tokens.css (--effect-*), not from this JSON.
      ===================================================================================== -->
 <script type="application/json" id="effect-settings">
 {
-  "count": 21, "minWidth": 58, "angle": 48, "persp": -0.45, "curves": 6.4, "freq": 6, "drift": 0.42, "irregular": 0.11,
-  "profile": 0, "crease": 0.87, "seam": 0.12, "shineRight": false, "relief": 1, "shine": 0.31, "sway": 0.4, "bend": 0.6,
-  "tiltHeat": 0.76, "size": 0.6, "amount": 1, "spread": 0.6, "linger": 0.65, "rise": 0.35, "lag": 0.5, "idle": 0.6,
-  "intensity": 1.25, "ambient": 0.12, "grain": 0.45
+  "count": 19,
+  "minWidth": 77,
+  "angle": 35,
+  "persp": -0.78,
+  "curves": 9.7,
+  "freq": 4.2,
+  "drift": 0.81,
+  "irregular": 0.12,
+  "profile": 0,
+  "crease": 0.87,
+  "seam": 0.12,
+  "shineRight": false,
+  "relief": 1,
+  "shine": 0.31,
+  "sway": 0.4,
+  "bend": 0.6,
+  "tiltHeat": 0.76,
+  "size": 0.6,
+  "amount": 1,
+  "spread": 0.6,
+  "linger": 0.65,
+  "rise": 0.35,
+  "lag": 0.5,
+  "idle": 0.6,
+  "intensity": 1.2,
+  "ambient": 0.06,
+  "grain": 0.45,
+  "phone": {
+    "minWidth": 38,
+    "size": 0.38,
+    "amount": 0.76,
+    "idle": 0.44,
+    "breath": 0.6,
+    "breathSpeed": 0.95,
+    "tapHeat": 0.85,
+    "tapSize": 0.56,
+    "intensity": 1.58,
+    "ambient": 0.07
+  }
 }
 </script>
 <a class="skip" href="#work">Skip to work</a>
@@ -181,8 +77,8 @@ h1 .line-mask, h2 .line-mask { padding-bottom: var(--mask-room); margin-bottom: 
 <header class="hero" aria-labelledby="hero-h">
   <canvas id="cv" aria-hidden="true"></canvas>
   <nav class="top" aria-label="Main">
-    <a class="mark" href="#">Aniket Shrivastava</a>
-    <div class="links"><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></div>
+    <a class="mark" href="index.html">Aniket Shrivastava</a>
+    <div class="links"><a href="index.html#work">Work</a><a href="index.html#experience">Experience</a><a href="index.html#about">About</a><a href="index.html#contact">Contact</a></div>
   </nav>
   <div class="center">
     <div class="copy">
@@ -198,44 +94,30 @@ h1 .line-mask, h2 .line-mask { padding-bottom: var(--mask-room); margin-bottom: 
 </header>
 
 <main>
-  <section class="block intro" id="about-intro">
-    <div class="wrap">
-      <p class="kicker reveal">What I do</p>
-      <h2>Six years designing the moments where money, identity and trust meet.</h2>
-      <div class="stats">
-        <div class="stat reveal"><b>6+</b><span>years in product and experience design</span></div>
-        <div class="stat reveal"><b>2.4M</b><span>daily users on Jio.com, designed with the core team</span></div>
-        <div class="stat reveal"><b>2</b><span>fintech accounts today, banking and wealth</span></div>
-      </div>
-    </div>
-  </section>
-
-  <div class="wrap"><span class="slat-rule" aria-hidden="true"></span></div>
-
   <section class="block" id="work">
     <div class="wrap">
       <p class="kicker reveal">Selected work</p>
-      <h2>Case studies</h2>
-      <div class="stack">
-        <a class="case" href="#" style="--i:0"><div class="case-copy"><span class="num">01 / 04</span><div class="tags"><span>[banking]</span><span>Identity</span></div><h3>Identity and consent, rebuilt for trust</h3><p>Placeholder summary. The problem, the reframe and the measurable change in one or two lines.</p><span class="more">Read the case study <span class="arr" aria-hidden="true">&rarr;</span></span></div><div class="shot" data-label="Case 01"></div><b class="dim" aria-hidden="true"></b></a>
-        <a class="case" href="#" style="--i:1"><div class="case-copy"><span class="num">02 / 04</span><div class="tags"><span>[wealth management]</span><span>Wealth Office</span></div><h3>Add Asset, from 12 forms to one flow</h3><p>Placeholder summary. How every asset type got a single, guided way in.</p><span class="more">Read the case study <span class="arr" aria-hidden="true">&rarr;</span></span></div><div class="shot" data-label="Case 02"></div><b class="dim" aria-hidden="true"></b></a>
-        <a class="case" href="#" style="--i:2"><div class="case-copy"><span class="num">03 / 04</span><div class="tags"><span>[wealth management]</span><span>AI systems</span></div><h3>Insight Management System</h3><p>Placeholder summary. Turning scattered client insight into something advisers act on.</p><span class="more">Read the case study <span class="arr" aria-hidden="true">&rarr;</span></span></div><div class="shot" data-label="Case 03"></div><b class="dim" aria-hidden="true"></b></a>
-        <a class="case" href="#" style="--i:3"><div class="case-copy"><span class="num">04 / 04</span><div class="tags"><span>Jio</span><span>Scale</span></div><h3>Jio.com at 2.4M daily users</h3><p>Placeholder summary. Designing for reach, speed and a very wide audience.</p><span class="more">Read the case study <span class="arr" aria-hidden="true">&rarr;</span></span></div><div class="shot" data-label="Case 04"></div><b class="dim" aria-hidden="true"></b></a>
-      </div>
+      <h2>Proof, in four case studies.</h2>
+      <ol class="index">
+        <li class="reveal"><a href="case/identity-consent.html"><span class="n">01</span><span class="t"><span class="tbd">Identity and consent, rebuilt for trust</span></span><span class="m">[banking] &middot; Identity</span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+        <li class="reveal"><a href="case/add-asset.html"><span class="n">02</span><span class="t">Add Asset, one guided flow for every asset type</span><span class="m">[wealth management] &middot; Wealth Office</span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+        <li class="reveal"><a href="case/insight-management.html"><span class="n">03</span><span class="t">Insight Management System</span><span class="m">[wealth management] &middot; AI systems</span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+        <li class="reveal"><a href="case/jio-com.html"><span class="n">04</span><span class="t">Jio.com at 2.4M daily users</span><span class="m">Jio &middot; Scale</span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+      </ol>
+      <p class="note-tbd">Layout placeholder: the selected work design is still being explored</p>
     </div>
   </section>
 
   <div class="wrap"><span class="slat-rule" aria-hidden="true"></span></div>
 
-  <section class="block" id="approach">
+  <section class="block" id="experience">
     <div class="wrap">
-      <p class="kicker reveal">How I work</p>
-      <h2>From first principles to shipped product.</h2>
-      <ol class="steps">
-        <li class="reveal"><span class="n">01</span><h3>Frame</h3><p>Question the brief, surface the assumptions and find the real friction.</p></li>
-        <li class="reveal"><span class="n">02</span><h3>Map</h3><p>Journeys, decision moments and edge cases, before any screen.</p></li>
-        <li class="reveal"><span class="n">03</span><h3>Prototype</h3><p>High-fidelity prototypes, so teams react to the real thing, not a picture.</p></li>
-        <li class="reveal"><span class="n">04</span><h3>Ship</h3><p>Work alongside engineering until it holds up in production.</p></li>
+      <p class="kicker reveal">Experience</p>
+      <h2>Where the work happened.</h2>
+      <ol class="exp">
+        <li class="reveal"><a href="work/bakerstreet.html"><span class="when">Oct 2024 to now</span><span><span class="co">Bakerstreet Digital</span><span class="role">Senior Associate, Experience Design</span><span class="what">A fintech-focused agency. I design across two client accounts, [banking] and [wealth management].</span></span><span class="go">See the work <span aria-hidden="true">&rarr;</span></span></a></li>
+        <li class="reveal gap"><div><span class="when">Nov 2023 to Oct 2024</span><span><span class="co">Full-time study</span><span class="what"><span class="tbd">A year preparing for the MDes entrance exams at IIT and NID. Wording is your call.</span></span></span><span></span></div></li>
+        <li class="reveal"><a href="work/jio.html"><span class="when">Jan 2019 to Nov 2023</span><span><span class="co">Jio</span><span class="role"><span class="tbd">Your title at Jio</span></span><span class="what">Part of the team behind Jio.com, 2.4M daily users.</span></span><span class="go">See the work <span aria-hidden="true">&rarr;</span></span></a></li>
       </ol>
     </div>
   </section>
@@ -244,16 +126,30 @@ h1 .line-mask, h2 .line-mask { padding-bottom: var(--mask-room); margin-bottom: 
 
   <section class="block" id="about">
     <div class="wrap about">
-      <div class="portrait reveal">Portrait</div>
       <div>
         <p class="kicker reveal">About</p>
         <h2>Designing for decisions that carry weight.</h2>
-        <p class="reveal">Placeholder bio. Senior experience designer in Pune, working across banking and wealth management. Postgraduate in visual design and UX from IIT Hyderabad.</p>
+      </div>
+      <div class="reveal">
+        <p><b>What I do.</b> Senior experience designer in Pune, working across banking and wealth management. Six years in product design, with a CS engineering degree and a postgraduate certification in visual design and UX from IIT Hyderabad.</p>
+        <p><b>How I think.</b> <span class="tbd">A line on framing before pixels: questioning the brief, HFI CUA methods, deciding with evidence.</span></p>
+        <p><b>Outside work.</b> <span class="tbd">What you are into and what you do outside work.</span></p>
       </div>
     </div>
+    <div class="carousel" aria-roledescription="carousel" aria-label="Life outside work">
+      <div class="wrap car-head"><span class="kicker" style="margin:0">Outside work</span><div class="car-btns"><button type="button" data-dir="-1" aria-label="Previous photos">&larr;</button><button type="button" data-dir="1" aria-label="Next photos">&rarr;</button></div></div>
+      <ul class="track" tabindex="0" aria-label="Photos, scroll sideways">
+          <li><div class="tile"><span>Photo 01</span></div><p class="cap"><span class="tbd">Caption</span></p></li>
+          <li><div class="tile"><span>Photo 02</span></div><p class="cap"><span class="tbd">Caption</span></p></li>
+          <li><div class="tile"><span>Photo 03</span></div><p class="cap"><span class="tbd">Caption</span></p></li>
+          <li><div class="tile"><span>Photo 04</span></div><p class="cap"><span class="tbd">Caption</span></p></li>
+          <li><div class="tile"><span>Photo 05</span></div><p class="cap"><span class="tbd">Caption</span></p></li>
+          <li><div class="tile"><span>Photo 06</span></div><p class="cap"><span class="tbd">Caption</span></p></li>
+      </ul>
+    </div>
   </section>
-
 </main>
+
 <div class="closing">
   <canvas id="cv2" aria-hidden="true"></canvas>
   <section class="block" id="contact">
@@ -266,299 +162,19 @@ h1 .line-mask, h2 .line-mask { padding-bottom: var(--mask-room); margin-bottom: 
       </div>
     </div>
   </section>
-  <footer class="site"><div class="wrap"><span>Aniket, Pune</span><span>Homepage sample, placeholder content</span></div></footer>
+  <footer class="site">
+    <div class="wrap fcols">
+      <div><h3>Elsewhere</h3><ul><li><a href="#">Email</a></li><li><a href="#">LinkedIn</a></li><li><a href="#"><span class="tbd">Resume (PDF)</span></a></li></ul></div>
+      <div><h3>Pages</h3><ul><li><a href="index.html#work">Selected work</a></li><li><a href="index.html#experience">Experience</a></li><li><a href="index.html#about">About</a></li></ul></div>
+      <div><h3>Based in</h3><ul><li><span>Pune, India</span></li><li><span data-clock>IST</span></li></ul></div>
+    </div>
+    <div class="wrap legal"><span>&copy; 2026 Aniket Shrivastava</span><span>Preview build, placeholder content</span></div>
+  </footer>
 </div>
-
-<script>
-/* =================== Ember Blinds hero ===================
-   The steel blinds geometry (slats, angle, perspective, curves, crease, sheen, sway, click ripple), lit by heat instead of a spotlight.
-   The cursor leaves a wide, soft trail of heat behind it that spreads, rises and fades; the slats open slightly where it is warm.
-   No movement, no heat, so there is never a bright point under the pointer. A slow ember wanders when nobody is moving.
-   The loop only runs while the hero is on screen. */
-function emberBlinds(hero, canvas) {
-  if (!hero || !canvas) return;
-  var SCHEMA = { count: [1, 40, 21], minWidth: [0, 200, 58], angle: [-90, 90, 48], persp: [-1, 1, -0.45], curves: [0, 30, 6.4], freq: [0.5, 20, 6], drift: [0, 2, 0.42],
-    irregular: [0, 1, 0.11], profile: [-1, 1, 0], crease: [0, 1.5, 0.87], seam: [0, 1, 0.12], relief: [0, 1, 1], shine: [0, 2, 0.31], sway: [0, 1, 0.4], bend: [0, 3, 0.6],
-    tiltHeat: [0, 1.5, 0.76], size: [0, 1, 0.6], amount: [0, 2, 1], spread: [0, 1, 0.6], linger: [0, 1, 0.65], rise: [0, 1.5, 0.35], lag: [0, 1, 0.5], idle: [0, 1, 0.6],
-    intensity: [0.3, 2.5, 1.25], ambient: [0, 0.6, 0.12], grain: [0, 1.5, 0.45] };
-  var P = {}, raw = {}; try { raw = JSON.parse(document.getElementById('effect-settings').textContent) || {}; } catch (e) {}
-  for (var k in SCHEMA) { var r = SCHEMA[k], v = Number(raw[k]); P[k] = isFinite(v) && raw[k] !== undefined && raw[k] !== null ? Math.min(r[1], Math.max(r[0], v)) : r[2]; }
-  P.shineRight = raw.shineRight === true;
-  var css = getComputedStyle(document.documentElement);
-  var stops = ['--effect-peak', '--effect-glow', '--effect-deep', '--effect-base'].map(function (n) { return css.getPropertyValue(n).trim() || '#000000'; });
-  var hexRGB = function (h) { var c = h.replace('#', ''); return [parseInt(c.substr(0, 2), 16) / 255, parseInt(c.substr(2, 2), 16) / 255, parseInt(c.substr(4, 2), 16) / 255]; };
-  var STOPS = new Float32Array([].concat(hexRGB(stops[0]), hexRGB(stops[1]), hexRGB(stops[2]), hexRGB(stops[3])));
-  var reduce = false; try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
-  var mobile = false; try { mobile = matchMedia('(hover: none) and (pointer: coarse)').matches; } catch (e) {}
-  var gl = canvas.getContext('webgl2', { antialias: false, alpha: false, powerPreference: 'high-performance' });
-  if (!gl) { hero.classList.add('no-gl'); return; }
-
-  var VS = '#version 300 es\nvoid main(){ vec2 p = vec2(float((gl_VertexID << 1) & 2), float(gl_VertexID & 2)); gl_Position = vec4(p * 2.0 - 1.0, 0.0, 1.0); }';
-  var FS = `#version 300 es
-precision highp float;
-uniform vec2 uRes; uniform float uTime; uniform float uAngle; uniform float uCount; uniform float uPersp; uniform float uCurves;
-uniform float uFreq; uniform float uCurvePhase; uniform float uIrr; uniform float uProfile; uniform float uCrease; uniform float uSeam; uniform float uShineFlip;
-uniform float uRelief; uniform float uShine; uniform float uSway; uniform float uBend; uniform float uTiltHeat;
-uniform sampler2D uTrail; uniform float uIntensity; uniform float uAmbient; uniform float uGrain; uniform vec3 uStops[4]; uniform vec4 uWaves[4];
-out vec4 outColor;
-float hash(vec2 p){ vec3 q = fract(vec3(p.xyx) * 0.1031); q += dot(q, q.yzx + 33.33); return fract((q.x + q.y) * q.z); }
-vec2 rotate2D(vec2 p, float a){ float c = cos(a), s = sin(a); return mat2(c, -s, s, c) * p; }
-// the steel blinds' own slat space: rotation, perspective widening, and the sine curves
-vec2 blindSpace(vec2 uv0){
-  float aspect = uRes.x / uRes.y;
-  vec2 p = uv0 * 2.0 - 1.0; p.x *= aspect;
-  vec2 pr = rotate2D(p, uAngle); pr.x /= aspect;
-  vec2 uv = pr * 0.5 + 0.5;
-  if (abs(uPersp) > 0.001) { float k = uPersp * 2.2; uv.x = (exp(k * uv.x) - 1.0) / (exp(k) - 1.0); }
-  if (uCurves > 0.0) { float a = uv.y * uFreq + uCurvePhase, b = uv.x * uFreq, w = 0.01 * uCurves; uv.x += sin(a) * w; uv.y += cos(b) * w; }
-  return uv;
-}
-vec3 grad(float t){ t = clamp(t, 0.0, 1.0) * 3.0; int i = int(min(floor(t), 2.0)); return mix(uStops[i], uStops[i + 1], t - float(i)); }
-float heatAt(vec2 uv){ return 1.0 - exp(-texture(uTrail, uv).r * 1.4); }
-void main(){
-  vec2 frag = gl_FragCoord.xy; vec2 uv0 = frag / uRes; float aspect = uRes.x / uRes.y;
-  vec2 bm = blindSpace(uv0);
-  float count = max(uCount, 1.0); float phase = bm.x * count;
-  phase += uIrr * 0.9 * sin(bm.x * count * 0.83 + 1.7) * (0.6 + 0.4 * sin(bm.x * count * 0.29 + 0.4)); // uneven slat widths
-  float slat = floor(phase); float s = phase - slat;
-  float aa = clamp(count * 1.25 / min(uRes.x, uRes.y), 0.001, 0.12) * (1.0 + uSeam * 7.0);       // wider seam between slats
-  float edgeBlend = 1.0 - smoothstep(0.0, aa, min(s, 1.0 - s));
-  float across = mix(s, 0.5, edgeBlend); if (uShineFlip > 0.5) across = 1.0 - across;
-  // each slat is a curved surface: it shows the heat behind it shifted across the slat, so neighbours do not line up
-  float c = cos(uAngle), sn = sin(uAngle);
-  vec2 dirUV = vec2(c / aspect, sn) * 0.5;
-  float heat = heatAt(uv0 + dirUV * (across - 0.5) * uBend / count * 2.0);
-  // slats tilt: their own sway, plus they open where it is warm (the blinds' hover tilt, driven by heat, not a pointer)
-  float tilt = uSway * 0.5 * sin(uTime * 0.9 + slat * 0.55) * (0.6 + 0.4 * sin(uTime * 0.37 + slat * 0.21));
-  tilt += uTiltHeat * heat * 1.1;
-  float pulse = 0.0;
-  for (int i = 0; i < 4; i++) {
-    vec4 wv = uWaves[i]; if (wv.w <= 0.0) continue;
-    float age = uTime - wv.z; if (age < 0.0 || age > 1.6) continue;
-    float life = age / 1.6; vec2 o = blindSpace(wv.xy / uRes);
-    float k = (abs(slat + 0.5 - o.x * count) - age * max(count, 4.0) * 0.95) / (0.8 + life * 1.2);
-    float along = (bm.y - o.y) / max(0.42 + life * 0.5, 0.01);
-    float ring = exp(-k * k) * exp(-along * along) * (1.0 - life) * (1.0 - life) * smoothstep(0.0, 0.2, age);
-    tilt += ring * 0.9; pulse += ring;
-  }
-  float ramp = pow(clamp(across, 0.0, 1.0), exp(tilt * 0.9));                 // 0 = the lit edge, 1 = into the fold
-  float crease = uCrease * 0.38 * smoothstep(0.62, 1.0, ramp);
-  // the glow: the heat field, plus a faint ember that always sits in the slats so the structure never goes fully dark
-  float amb = uAmbient * (0.35 + 0.65 * smoothstep(0.0, 1.0, bm.x)) * (0.75 + 0.25 * sin(bm.y * 3.0 + uTime * 0.15));
-  float g = heat * uIntensity + amb;
-  float body = 1.0 - uRelief * 0.8 * pow(ramp, exp(-uProfile * 1.3));         // profile: flat (light falls off late) to round (falls off early)
-  float sheen = uShine * exp(-pow((across - 0.035) / 0.07, 2.0)) * (1.0 - edgeBlend);
-  float lum = g * body - crease * g * 0.6 + sheen * (0.1 + 1.1 * g) + pulse * 0.12 * (0.3 + g);
-  lum = max(lum, 0.0); lum = pow(lum, 1.2); lum = lum / (1.0 + 0.35 * lum);    // soft shoulder: the glow never clips to a hot point
-  vec3 col = grad(1.0 - clamp(lum, 0.0, 1.0));
-  col *= 1.0 - min(0.45 * uRelief + 0.5 * uSeam, 0.95) * edgeBlend;            // the dark seam between slats
-  float n = hash(frag + fract(uTime) * 61.0) + hash(frag.yx + 17.0) - 1.0;
-  col += n * 0.07 * uGrain * (0.3 + 0.7 * smoothstep(0.0, 0.5, lum));
-  col *= 1.0 - 0.22 * pow(length(uv0 - 0.5) * 1.25, 2.0);
-  outColor = vec4(max(col, uStops[3] * 0.6), 1.0);
-}`;
-  // heat field: spreads, rises, fades; deposits come from a point lagging the cursor and scale with its speed
-  var SFS = `#version 300 es
-precision highp float;
-uniform sampler2D uPrev; uniform vec2 uTexel; uniform vec2 uA; uniform vec2 uB; uniform float uRad; uniform float uAmt; uniform float uKeep;
-uniform float uSpread; uniform float uRise; uniform float uAsp; uniform float uT;
-out vec4 o;
-float h2(vec2 p){ vec3 q = fract(vec3(p.xyx) * 0.1031); q += dot(q, q.yzx + 33.33); return fract((q.x + q.y) * q.z); }
-float n2(vec2 p){ vec2 i = floor(p), f = fract(p); vec2 u = f * f * (3.0 - 2.0 * f); return mix(mix(h2(i), h2(i + vec2(1, 0)), u.x), mix(h2(i + vec2(0, 1)), h2(i + vec2(1, 1)), u.x), u.y); }
-void main() {
-  vec2 uv = gl_FragCoord.xy * uTexel;
-  vec2 wob = (vec2(n2(uv * 5.0 + uT * 0.25), n2(uv * 5.0 + 19.0 - uT * 0.25)) - 0.5) * uTexel * 2.6;
-  vec2 src = uv - vec2(0.0, uRise) * uTexel + wob;
-  vec2 e = uTexel * 1.8;
-  float c = texture(uPrev, src).r;
-  float nb = texture(uPrev, src + vec2(e.x, 0)).r + texture(uPrev, src - vec2(e.x, 0)).r + texture(uPrev, src + vec2(0, e.y)).r + texture(uPrev, src - vec2(0, e.y)).r;
-  float h = mix(c, nb * 0.25, uSpread) * uKeep;
-  vec2 pa = (uv - uA) * vec2(uAsp, 1.0), ba = (uB - uA) * vec2(uAsp, 1.0);
-  float t = clamp(dot(pa, ba) / max(dot(ba, ba), 1e-8), 0.0, 1.0); float d = length(pa - ba * t);
-  h += uAmt * exp(-d * d / (uRad * uRad));
-  o = vec4(min(h, 5.0), 0.0, 0.0, 1.0);
-}`;
-  function sh(t, s) { var x = gl.createShader(t); gl.shaderSource(x, s); gl.compileShader(x); if (!gl.getShaderParameter(x, gl.COMPILE_STATUS)) { console.error(gl.getShaderInfoLog(x)); return null; } return x; }
-  function link(fs) { var p = gl.createProgram(), a = sh(gl.VERTEX_SHADER, VS), b = sh(gl.FRAGMENT_SHADER, fs); if (!a || !b) return null; gl.attachShader(p, a); gl.attachShader(p, b); gl.linkProgram(p);
-    if (!gl.getProgramParameter(p, gl.LINK_STATUS)) { console.error(gl.getProgramInfoLog(p)); return null; }
-    var L = {}, n = gl.getProgramParameter(p, gl.ACTIVE_UNIFORMS); for (var i = 0; i < n; i++) { var nm = gl.getActiveUniform(p, i).name.replace(/\[0\]$/, ''); L[nm] = gl.getUniformLocation(p, nm); } return { p: p, u: L }; }
-  var main = link(FS), sim = link(SFS); if (!main || !sim) { hero.classList.add('no-gl'); return; }
-  var vao = gl.createVertexArray();
-  var floatOK = !!gl.getExtension('EXT_color_buffer_float'); gl.getExtension('OES_texture_float_linear');
-
-  var W = 1, H = 1, ratio = 1, time = 0, last = 0, raf = 0, onScreen = true, idleFor = 99, idleMix = 1;
-  var waves = new Float32Array(16), wi = 0, pointer = { x: 0, y: 0, inside: false };
-  var trail = { w: 0, h: 0, tex: [], fbo: [], cur: 0 }, follow = null, prevF = null;
-  function makeTrail() {
-    var w = Math.max(64, Math.round(W / 4)), h = Math.max(64, Math.round(H / 4));
-    trail.tex.forEach(function (t) { gl.deleteTexture(t); }); trail.fbo.forEach(function (f) { gl.deleteFramebuffer(f); }); trail.tex = []; trail.fbo = [];
-    for (var j = 0; j < 2; j++) { var t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t);
-      if (floatOK) gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA16F, w, h, 0, gl.RGBA, gl.HALF_FLOAT, null); else gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-      var fb = gl.createFramebuffer(); gl.bindFramebuffer(gl.FRAMEBUFFER, fb); gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, t, 0);
-      gl.clearColor(0, 0, 0, 1); gl.clear(gl.COLOR_BUFFER_BIT); trail.tex.push(t); trail.fbo.push(fb); }
-    gl.bindFramebuffer(gl.FRAMEBUFFER, null); trail.w = w; trail.h = h;
-  }
-  function stepTrail(dt, target, gain) {
-    if (!trail.w) makeTrail();
-    var kf = 1 - Math.exp(-dt / (0.06 + P.lag * 0.35));
-    if (!follow) follow = target.slice();
-    follow[0] += (target[0] - follow[0]) * kf; follow[1] += (target[1] - follow[1]) * kf;
-    var a = prevF || follow, b = follow, dx = (b[0] - a[0]) * W / H, dy = b[1] - a[1];
-    var amt = Math.min(Math.sqrt(dx * dx + dy * dy) * 6, 0.3) * P.amount * gain;
-    prevF = follow.slice();
-    var src = trail.cur, dst = 1 - src, U = sim.u;
-    gl.bindFramebuffer(gl.FRAMEBUFFER, trail.fbo[dst]); gl.viewport(0, 0, trail.w, trail.h); gl.useProgram(sim.p); gl.bindVertexArray(vao);
-    gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, trail.tex[src]); gl.uniform1i(U.uPrev, 0);
-    gl.uniform2f(U.uTexel, 1 / trail.w, 1 / trail.h); gl.uniform2f(U.uA, a[0], a[1]); gl.uniform2f(U.uB, b[0], b[1]);
-    gl.uniform1f(U.uRad, 0.04 + 0.16 * P.size); gl.uniform1f(U.uAmt, amt);
-    gl.uniform1f(U.uKeep, Math.pow(0.95 + 0.048 * P.linger, dt * 60)); gl.uniform1f(U.uSpread, Math.min(0.35 + 0.6 * P.spread, 0.98));
-    gl.uniform1f(U.uRise, P.rise * 0.9 * dt * 60); gl.uniform1f(U.uAsp, W / H); gl.uniform1f(U.uT, time);
-    gl.drawArrays(gl.TRIANGLES, 0, 3); gl.bindFramebuffer(gl.FRAMEBUFFER, null); trail.cur = dst;
-  }
-  function wander(t) { return [0.62 + 0.26 * Math.sin(t * 0.23) + 0.06 * Math.sin(t * 0.71), 0.5 + 0.28 * Math.sin(t * 0.19 + 1.1) + 0.05 * Math.cos(t * 0.57)]; }
-  function draw() {
-    gl.viewport(0, 0, canvas.width, canvas.height); gl.useProgram(main.p); gl.bindVertexArray(vao);
-    var U = main.u;
-    gl.uniform2f(U.uRes, canvas.width, canvas.height); gl.uniform1f(U.uTime, time);
-    var cnt = P.minWidth > 0 ? Math.max(1, Math.min(P.count, Math.floor(W / P.minWidth))) : P.count;
-    gl.uniform1f(U.uCount, cnt); gl.uniform1f(U.uAngle, P.angle * Math.PI / 180); gl.uniform1f(U.uPersp, P.persp); gl.uniform1f(U.uCurves, P.curves);
-    gl.uniform1f(U.uFreq, P.freq); gl.uniform1f(U.uCurvePhase, time * P.drift * 0.25); gl.uniform1f(U.uIrr, P.irregular); gl.uniform1f(U.uProfile, P.profile);
-    gl.uniform1f(U.uCrease, P.crease); gl.uniform1f(U.uSeam, P.seam); gl.uniform1f(U.uShineFlip, P.shineRight ? 1 : 0);
-    gl.uniform1f(U.uRelief, P.relief); gl.uniform1f(U.uShine, P.shine); gl.uniform1f(U.uSway, reduce ? 0 : P.sway); gl.uniform1f(U.uBend, P.bend); gl.uniform1f(U.uTiltHeat, P.tiltHeat);
-    gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, trail.tex[trail.cur] || null); gl.uniform1i(U.uTrail, 0);
-    gl.uniform1f(U.uIntensity, P.intensity); gl.uniform1f(U.uAmbient, P.ambient); gl.uniform1f(U.uGrain, P.grain);
-    gl.uniform3fv(U.uStops, STOPS); gl.uniform4fv(U.uWaves, waves);
-    gl.drawArrays(gl.TRIANGLES, 0, 3);
-  }
-  function frame(now) {
-    raf = 0; var dt = last ? Math.min((now - last) / 1000, 0.05) : 1 / 60; last = now; time += dt; idleFor += dt;
-    var idle = !pointer.inside || idleFor > 2.5;
-    idleMix += ((idle ? 1 : 0) - idleMix) * (1 - Math.exp(-dt / 0.8));
-    var wv = wander(time), cur = [pointer.x / W, 1 - pointer.y / H];
-    var tgt = pointer.inside ? [cur[0] + (wv[0] - cur[0]) * idleMix, cur[1] + (wv[1] - cur[1]) * idleMix] : wv;
-    stepTrail(dt, tgt, 1 - idleMix * (1 - P.idle));
-    draw();
-    if (onScreen && !document.hidden) raf = requestAnimationFrame(frame);
-  }
-  function wake() { if (!raf && !reduce && onScreen && !document.hidden) { last = 0; raf = requestAnimationFrame(frame); } }
-  function resize() {
-    var r = hero.getBoundingClientRect(); W = Math.max(1, r.width); H = Math.max(1, r.height);
-    ratio = Math.min(devicePixelRatio || 1, mobile ? 1.5 : 2); canvas.width = Math.round(W * ratio); canvas.height = Math.round(H * ratio);
-    trail.w = 0; follow = prevF = null; warm();
-  }
-  // first paint is never empty: run the wandering ember for a moment before the page is shown
-  function warm() { for (var i = 0; i < 70; i++) { time += 1 / 60; stepTrail(1 / 60, wander(time), P.idle * 1.4); } draw(); }
-  hero.addEventListener('pointermove', function (e) { var r = hero.getBoundingClientRect(); pointer.x = e.clientX - r.left; pointer.y = e.clientY - r.top; pointer.inside = true; idleFor = 0; wake(); }, { passive: true });
-  hero.addEventListener('pointerleave', function () { pointer.inside = false; });
-  canvas.addEventListener('pointerdown', function (e) { var r = hero.getBoundingClientRect(), o = wi * 4; waves[o] = (e.clientX - r.left) * ratio; waves[o + 1] = (H - (e.clientY - r.top)) * ratio; waves[o + 2] = time; waves[o + 3] = 1; wi = (wi + 1) % 4; wake(); });
-  var rt = 0; addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { resize(); wake(); }, 120); });
-  document.addEventListener('visibilitychange', wake);
-  if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { onScreen = es[0].isIntersecting; wake(); }).observe(hero);
-  resize(); wake();
-}
-emberBlinds(document.querySelector('.hero'), document.getElementById('cv'));
-emberBlinds(document.querySelector('.closing'), document.getElementById('cv2'));
-
-/* Slat motif: the hero's slat line, drawn once as static grey strokes, at the same angle and curve */
-(function () {
-  var a = 48 * Math.PI / 180;
-  function svg(w, h, gap, amp) {
-    var t = Math.tan(Math.PI / 2 - a), d = '', n = Math.ceil((w + h * Math.abs(t)) / gap) + 2;
-    for (var i = -2; i < n; i++) {
-      var x0 = i * gap - h * Math.abs(t), pts = [];
-      for (var s = 0; s <= 12; s++) { var y = h * s / 12, x = x0 + y * Math.abs(t) + amp * Math.sin(y / h * Math.PI * 2 + i * 0.5); pts.push((s ? 'L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1)); }
-      d += pts.join('');
-    }
-    return '<svg viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="none" aria-hidden="true"><path d="' + d + '" fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke"/></svg>';
-  }
-  function paint() {
-    document.querySelectorAll('.slat-rule').forEach(function (el) { el.innerHTML = svg(Math.round(el.clientWidth) || 1000, 56, 58, 6); });
-    document.querySelectorAll('.case .shot').forEach(function (el) { var old = el.querySelector('svg'); if (old) old.remove(); el.insertAdjacentHTML('afterbegin', svg(Math.round(el.clientWidth) || 600, Math.round(el.clientHeight) || 400, 40, 14)); });
-  }
-  var t = 0; addEventListener('resize', function () { clearTimeout(t); t = setTimeout(paint, 200); }); paint();
-})();
-
-/* Case cards: one ember edge light shared across every card's border; on phones the card in the middle of the screen is lit */
-(function () {
-  var work = document.querySelector('.stack'); if (!work) return;
-  var cards = [].slice.call(work.querySelectorAll('.case'));
-  cards.forEach(function (c) { var b = document.createElement('b'); b.className = 'spot'; b.setAttribute('aria-hidden', 'true'); c.appendChild(b); });
-  var touch = false; try { touch = matchMedia('(hover: none) and (pointer: coarse)').matches; } catch (e) {}
-  if (!touch) {
-    var raf = 0, ev = null;
-    work.addEventListener('pointermove', function (e) { ev = e; work.classList.add('lit'); if (raf) return;
-      raf = requestAnimationFrame(function () { raf = 0; cards.forEach(function (c) { var r = c.getBoundingClientRect(); c.style.setProperty('--x', (ev.clientX - r.left) + 'px'); c.style.setProperty('--y', (ev.clientY - r.top) + 'px'); }); }); });
-    work.addEventListener('pointerleave', function () { work.classList.remove('lit'); });
-  } else {
-    var pick = function () {
-      var mid = innerHeight * 0.5, best = null;
-      cards.forEach(function (c) { var r = c.getBoundingClientRect(); if (r.top < innerHeight * 0.6 && r.bottom > innerHeight * 0.2) best = c; });
-      work.classList.toggle('lit', !!best);
-      cards.forEach(function (c) { var r = c.getBoundingClientRect(); c.classList.toggle('active', c === best); c.style.setProperty('--x', (r.width * 0.5) + 'px'); c.style.setProperty('--y', Math.max(-r.height * 0.3, Math.min(r.height * 1.3, mid - r.top)) + 'px'); });
-    };
-    addEventListener('scroll', pick, { passive: true }); addEventListener('resize', pick); pick();
-  }
-})();
-(function () {
-  var els = document.querySelectorAll('.reveal');
-  if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
-  var io = new IntersectionObserver(function (es) { es.forEach(function (e, i) { if (e.isIntersecting) { var el = e.target; setTimeout(function () { el.classList.add('in'); }, 60 * (i % 4)); io.unobserve(el); } }); }, { rootMargin: '0px 0px -8% 0px' });
-  els.forEach(function (e) { io.observe(e); });
-})();
-document.addEventListener('click', function (e) {
-  var a = e.target.closest && e.target.closest('a[href^="#"]'); if (!a) return;
-  var id = a.getAttribute('href').slice(1); if (!id) return;
-  var el = document.getElementById(id); if (!el) return;
-  e.preventDefault();
-  var rm = false; try { rm = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e2) {}
-  scrollTo({ top: el.getBoundingClientRect().top + scrollY, behavior: rm ? 'auto' : 'smooth' });
-});
-</script>
+<script src="assets/js/ember.js"></script>
+<script src="assets/js/site.js"></script>
 <script defer src="assets/js/gsap.min.js"></script>
 <script defer src="assets/js/ScrollTrigger.min.js"></script>
 <script defer src="assets/js/SplitText.min.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-(function () {
-  // Stacking cards: the card underneath eases back and dims as the next one slides over it
-  if (!window.gsap || !window.ScrollTrigger) return;
-  var rm = false; try { rm = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
-  if (rm) return;
-  gsap.registerPlugin(ScrollTrigger);
-  var cards = gsap.utils.toArray('.stack .case');
-  cards.forEach(function (card, i) {
-    var next = cards[i + 1]; if (!next) return;
-    var depth = cards.length - 1 - i;
-    var tl = gsap.timeline({ scrollTrigger: { trigger: next, start: 'top bottom', end: function () { return 'top ' + (parseFloat(getComputedStyle(next).top) || 0) + 'px'; }, scrub: 0.6, invalidateOnRefresh: true } });
-    tl.to(card, { scale: 1 - 0.04 * Math.min(depth, 3) - 0.03, y: 24, ease: 'none' }, 0)
-      .to(card.querySelector('.dim'), { opacity: 0.6, ease: 'none' }, 0);
-  });
-  addEventListener('load', function () { ScrollTrigger.refresh(); });
-})();
-(function () {
-  // Heading reveal: each line slides up from behind its own mask
-  if (!window.gsap || !window.ScrollTrigger || !window.SplitText) return;
-  var rm = false; try { rm = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
-  if (rm) return;
-  gsap.registerPlugin(ScrollTrigger, SplitText);
-  document.documentElement.classList.add('split-ready');
-  var heads = [].slice.call(document.querySelectorAll('.hero h1, main h2'));
-  var done = false;
-  function run() {
-    if (done) return; done = true;
-    heads.forEach(function (h) {
-      var hero = !!h.closest('.hero');
-      SplitText.create(h, { type: 'lines', mask: 'lines', autoSplit: true, linesClass: 'line',
-        onSplit: function (self) { gsap.set(h, { visibility: 'visible' });
-          return gsap.from(self.lines, { yPercent: 115, duration: hero ? 1.1 : 0.9, ease: 'power3.out', stagger: 0.09, delay: hero ? 0.2 : 0, scrollTrigger: hero ? null : { trigger: h, start: 'top 88%', once: true } }); } });
-    });
-  }
-  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(run);
-  setTimeout(function () { run(); heads.forEach(function (h) { h.style.visibility = 'visible'; }); }, 2500);
-})();
-});
-</script>
 </body>
 </html>
