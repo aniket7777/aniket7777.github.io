@@ -143,12 +143,7 @@ footer.site { position: relative; padding-top: 32px; font-size: var(--fs-small);
 .fcols a, .fcols li > span { display: inline-flex; min-height: 32px; align-items: center; color: var(--color-text); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: .3em;
   transition: color var(--dur-state) var(--ease-state), text-decoration-color var(--dur-state) var(--ease-state); }
 .fcols a:hover { color: var(--color-accent-hover); text-decoration-color: var(--color-accent-hover); }
-/* the name: barely there on its own; a second copy dodges the blinds beneath it, so the letters light up only where the slats and heat are bright */
-.bigname { position: relative; margin: 0; padding: 0 var(--page-margin); font-family: var(--font-display); font-weight: 600; font-stretch: 75%; font-size: clamp(6rem, 31vw, 34rem); line-height: .8; letter-spacing: -0.045em;
-  text-align: center; white-space: nowrap; user-select: none; text-shadow: none; margin-bottom: -.1em; }
-.bigname .base { display: block; color: color-mix(in srgb, var(--ink-50) 6%, transparent); }
-.bigname .lit { position: absolute; inset: 0 var(--page-margin); color: var(--ink-400); mix-blend-mode: color-dodge; }
-.legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; padding-top: 4px; padding-bottom: clamp(12px, 2vw, 24px); border-top: 1px solid color-mix(in srgb, var(--ink-50) 10%, transparent); padding-top: 14px; font-size: var(--fs-micro); color: var(--color-text-secondary); position: relative; }
+.legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; padding-top: 4px; padding-bottom: clamp(20px, 3vw, 32px); border-top: 1px solid color-mix(in srgb, var(--ink-50) 10%, transparent); padding-top: 14px; font-size: var(--fs-micro); color: var(--color-text-secondary); position: relative; }
 @media (max-width: 720px) { .fcols { grid-template-columns: 1fr 1fr; } }
 
 /* ---------- Inner pages (L1 company, L2 case study) ---------- */
