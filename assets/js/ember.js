@@ -4,7 +4,9 @@
    The cursor leaves a wide, soft trail of heat behind it that spreads, rises and fades; the slats open slightly where it is warm.
    No movement, no heat, so there is never a bright point under the pointer. A slow ember wanders when nobody is moving.
    The loop only runs while the hero is on screen. */
-function emberBlinds(hero, canvas) {
+function emberBlinds(hero, canvas, opts) {
+  opts = opts || {};
+  var ZONE = opts.zone || [0, 1];   // the vertical band (0 = bottom, 1 = top) where the blinds are visible; the idle ember stays inside it
   if (!hero || !canvas) return;
   // [min, max, default]; defaults are the tuned values, so pages without a settings block look identical
   var SCHEMA = { count: [1, 40, 19], minWidth: [0, 200, 77], angle: [-90, 90, 35], persp: [-1, 1, -0.78], curves: [0, 30, 9.7], freq: [0.5, 20, 4.2], drift: [0, 2, 0.81],
@@ -157,8 +159,11 @@ void main() {
     gl.drawArrays(gl.TRIANGLES, 0, 3); gl.bindFramebuffer(gl.FRAMEBUFFER, null); trail.cur = dst;
   }
   function wander(t) {
-    if (mobile) { t *= 1.6; return [0.5 + 0.32 * Math.sin(t * 0.23) + 0.08 * Math.sin(t * 0.71), 0.5 + 0.34 * Math.sin(t * 0.19 + 1.1) + 0.06 * Math.cos(t * 0.57)]; }
-    return [0.62 + 0.26 * Math.sin(t * 0.23) + 0.06 * Math.sin(t * 0.71), 0.5 + 0.28 * Math.sin(t * 0.19 + 1.1) + 0.05 * Math.cos(t * 0.57)];
+    var p;
+    if (mobile) { t *= 1.6; p = [0.5 + 0.32 * Math.sin(t * 0.23) + 0.08 * Math.sin(t * 0.71), 0.5 + 0.34 * Math.sin(t * 0.19 + 1.1) + 0.06 * Math.cos(t * 0.57)]; }
+    else p = [0.62 + 0.26 * Math.sin(t * 0.23) + 0.06 * Math.sin(t * 0.71), 0.5 + 0.28 * Math.sin(t * 0.19 + 1.1) + 0.05 * Math.cos(t * 0.57)];
+    p[1] = ZONE[0] + p[1] * (ZONE[1] - ZONE[0]);   // squeeze the path into the visible band
+    return p;
   }
   function draw() {
     gl.viewport(0, 0, canvas.width, canvas.height); gl.useProgram(main.p); gl.bindVertexArray(vao);
@@ -198,7 +203,8 @@ void main() {
   hero.addEventListener('pointermove', function (e) { var r = hero.getBoundingClientRect(); pointer.x = e.clientX - r.left; pointer.y = e.clientY - r.top; pointer.inside = true; idleFor = 0; wake(); }, { passive: true });
   hero.addEventListener('pointerleave', function () { pointer.inside = false; });
   ['pointerup', 'pointercancel'].forEach(function (t) { hero.addEventListener(t, function (e) { if (e.pointerType === 'touch') pointer.inside = false; }); });
-  canvas.addEventListener('pointerdown', function (e) { var r = hero.getBoundingClientRect(), o = wi * 4;
+  // listen on the whole band, not just the canvas: copy and footer sit above the canvas and would swallow the tap; links and buttons keep theirs
+  hero.addEventListener('pointerdown', function (e) { if (e.target.closest && e.target.closest('a, button, input, label, [tabindex]')) return; var r = hero.getBoundingClientRect(), o = wi * 4;
     if (mobile && !reduce) {   // a tap releases a burst of heat right there; a drag then carries on from the finger
       var pt = [(e.clientX - r.left) / W, 1 - (e.clientY - r.top) / H];
       simPass(1 / 60, pt, pt, 0.05 + 0.22 * P.phone.tapSize, 0.9 * P.phone.tapHeat);
@@ -206,8 +212,9 @@ void main() {
     } waves[o] = (e.clientX - r.left) * ratio; waves[o + 1] = (H - (e.clientY - r.top)) * ratio; waves[o + 2] = time; waves[o + 3] = 1; wi = (wi + 1) % 4; wake(); });
   var rt = 0; addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { resize(); wake(); }, 120); });
   document.addEventListener('visibilitychange', wake);
-  if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { onScreen = es[0].isIntersecting; wake(); }).observe(hero);
+  // arriving on screen after being away: lay down a moment of idle heat first, so the band never scrolls in cold
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { var was = onScreen; onScreen = es[0].isIntersecting; if (onScreen && !was && !reduce) { for (var i = 0; i < 40; i++) { time += 1 / 60; stepTrail(1 / 60, wander(time), E('idle') * 1.4); } draw(); } wake(); }).observe(hero);
   resize(); wake();
 }
-emberBlinds(document.querySelector('.hero'), document.getElementById('cv'));
-emberBlinds(document.querySelector('.closing'), document.getElementById('cv2'));
+emberBlinds(document.querySelector('.hero'), document.getElementById('cv'), { zone: [0.35, 1] });      // hero: fades out over its lower half
+emberBlinds(document.querySelector('.closing'), document.getElementById('cv2'), { zone: [0, 0.75] });  // closing band: fades in from the top, so the ember lives low

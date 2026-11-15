@@ -174,3 +174,8 @@ footer.site { position: relative; padding-top: 32px; font-size: var(--fs-small);
 /* placeholder copy: dashed underline so nothing unfinished can ship unnoticed */
 .tbd { color: var(--color-text-secondary); text-decoration: underline dashed var(--ink-600); text-underline-offset: .25em; }
 @media (max-width: 860px) { .about { grid-template-columns: 1fr; } .exp li > a, .exp li > div { grid-template-columns: 1fr; } .exp .go { justify-self: start; } .facts { grid-template-columns: 1fr 1fr; } .projects { grid-template-columns: 1fr; } .case-body section { grid-template-columns: 1fr; } .index a { grid-template-columns: 2.5rem 1fr 1.5rem; } .index .m { display: none; } }
+/* phones: the closing band is mostly covered by contact and footer copy, so it holds full strength higher up before fading, to match the hero's weight */
+@media (hover: none) and (pointer: coarse) {
+  #cv2 { -webkit-mask: linear-gradient(0deg, #000 0%, #000 55%, rgba(0,0,0,.75) 70%, rgba(0,0,0,.35) 85%, transparent 100%);
+    mask: linear-gradient(0deg, #000 0%, #000 55%, rgba(0,0,0,.75) 70%, rgba(0,0,0,.35) 85%, transparent 100%); }
+}
