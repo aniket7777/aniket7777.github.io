@@ -3,7 +3,8 @@
   var rm = false; try { rm = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
 
   /* Slat motif: the hero's slat line, drawn as static grey strokes at the same angle and curve */
-  var a = 48 * Math.PI / 180;
+  var ang = 35; try { ang = JSON.parse(document.getElementById('effect-settings').textContent).angle || ang; } catch (e) {}
+  var a = ang * Math.PI / 180;
   function svg(w, h, gap, amp) {
     var t = Math.tan(Math.PI / 2 - a), d = '', n = Math.ceil((w + h * Math.abs(t)) / gap) + 2;
     for (var i = -2; i < n; i++) {

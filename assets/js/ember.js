@@ -6,19 +6,24 @@
    The loop only runs while the hero is on screen. */
 function emberBlinds(hero, canvas) {
   if (!hero || !canvas) return;
-  var SCHEMA = { count: [1, 40, 21], minWidth: [0, 200, 58], angle: [-90, 90, 48], persp: [-1, 1, -0.45], curves: [0, 30, 6.4], freq: [0.5, 20, 6], drift: [0, 2, 0.42],
-    irregular: [0, 1, 0.11], profile: [-1, 1, 0], crease: [0, 1.5, 0.87], seam: [0, 1, 0.12], relief: [0, 1, 1], shine: [0, 2, 0.31], sway: [0, 1, 0.4], bend: [0, 3, 0.6],
+  // [min, max, default]; defaults are the tuned values, so pages without a settings block look identical
+  var SCHEMA = { count: [1, 40, 19], minWidth: [0, 200, 77], angle: [-90, 90, 35], persp: [-1, 1, -0.78], curves: [0, 30, 9.7], freq: [0.5, 20, 4.2], drift: [0, 2, 0.81],
+    irregular: [0, 1, 0.12], profile: [-1, 1, 0], crease: [0, 1.5, 0.87], seam: [0, 1, 0.12], relief: [0, 1, 1], shine: [0, 2, 0.31], sway: [0, 1, 0.4], bend: [0, 3, 0.6],
     tiltHeat: [0, 1.5, 0.76], size: [0, 1, 0.6], amount: [0, 2, 1], spread: [0, 1, 0.6], linger: [0, 1, 0.65], rise: [0, 1.5, 0.35], lag: [0, 1, 0.5], idle: [0, 1, 0.6],
-    intensity: [0.3, 2.5, 1.25], ambient: [0, 0.6, 0.12], grain: [0, 1.5, 0.45] };
-  var P = {}, raw = {}; try { raw = JSON.parse(document.getElementById('effect-settings').textContent) || {}; } catch (e) {}
-  for (var k in SCHEMA) { var r = SCHEMA[k], v = Number(raw[k]); P[k] = isFinite(v) && raw[k] !== undefined && raw[k] !== null ? Math.min(r[1], Math.max(r[0], v)) : r[2]; }
-  P.shineRight = raw.shineRight === true;
+    intensity: [0.3, 2.5, 0.68], ambient: [0, 0.6, 0.03], grain: [0, 1.5, 0.45] };
+  // phone profile: touch screens have no hover, so the field breathes on its own and a tap releases heat where it lands
+  var PHONE = { minWidth: [0, 200, 38], size: [0, 1, 0.38], amount: [0, 3, 0.76], idle: [0, 2, 0.44], breath: [0, 1, 0.6], breathSpeed: [0.1, 2, 0.95],
+    tapHeat: [0, 3, 0.85], tapSize: [0, 1, 0.56], intensity: [0.3, 2.5, 1.58], ambient: [0, 0.6, 0.07] };
+  function clampFrom(schema, src) { var o = {}; src = src || {}; for (var k in schema) { var r = schema[k], v = Number(src[k]); o[k] = isFinite(v) && src[k] !== undefined && src[k] !== null ? Math.min(r[1], Math.max(r[0], v)) : r[2]; } return o; }
+  var raw = {}; try { raw = JSON.parse(document.getElementById('effect-settings').textContent) || {}; } catch (e) {}
+  var P = clampFrom(SCHEMA, raw); P.shineRight = raw.shineRight === true; P.phone = clampFrom(PHONE, raw.phone);
   var css = getComputedStyle(document.documentElement);
   var stops = ['--effect-peak', '--effect-glow', '--effect-deep', '--effect-base'].map(function (n) { return css.getPropertyValue(n).trim() || '#000000'; });
   var hexRGB = function (h) { var c = h.replace('#', ''); return [parseInt(c.substr(0, 2), 16) / 255, parseInt(c.substr(2, 2), 16) / 255, parseInt(c.substr(4, 2), 16) / 255]; };
   var STOPS = new Float32Array([].concat(hexRGB(stops[0]), hexRGB(stops[1]), hexRGB(stops[2]), hexRGB(stops[3])));
   var reduce = false; try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
   var mobile = false; try { mobile = matchMedia('(hover: none) and (pointer: coarse)').matches; } catch (e) {}
+  function E(k) { return mobile && P.phone[k] !== undefined ? P.phone[k] : P[k]; }   // effective value: the phone override on touch screens
   var gl = canvas.getContext('webgl2', { antialias: false, alpha: false, powerPreference: 'high-performance' });
   if (!gl) { hero.classList.add('no-gl'); return; }
 
@@ -134,30 +139,39 @@ void main() {
     var kf = 1 - Math.exp(-dt / (0.06 + P.lag * 0.35));
     if (!follow) follow = target.slice();
     follow[0] += (target[0] - follow[0]) * kf; follow[1] += (target[1] - follow[1]) * kf;
-    var a = prevF || follow, b = follow, dx = (b[0] - a[0]) * W / H, dy = b[1] - a[1];
-    var amt = Math.min(Math.sqrt(dx * dx + dy * dy) * 6, 0.3) * P.amount * gain;
+    var m = Math.min(W, H), a = prevF || follow, b = follow, dx = (b[0] - a[0]) * W / m, dy = (b[1] - a[1]) * H / m;   // movement in short-side units: a tall phone is not penalised
+    var amt = Math.min(Math.sqrt(dx * dx + dy * dy) * 6, 0.3) * E('amount') * gain;   // no movement, no heat: never a source to see
+    if (mobile) amt += E('idle') * 0.12 * dt * idleMix;                                  // phones: the wandering ember always lays a little heat
     prevF = follow.slice();
+    simPass(dt, a, b, 0.04 + 0.16 * E('size'), amt);
+  }
+  function simPass(dt, a, b, rad, amt) {
+    if (!trail.w) makeTrail();
     var src = trail.cur, dst = 1 - src, U = sim.u;
     gl.bindFramebuffer(gl.FRAMEBUFFER, trail.fbo[dst]); gl.viewport(0, 0, trail.w, trail.h); gl.useProgram(sim.p); gl.bindVertexArray(vao);
     gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, trail.tex[src]); gl.uniform1i(U.uPrev, 0);
     gl.uniform2f(U.uTexel, 1 / trail.w, 1 / trail.h); gl.uniform2f(U.uA, a[0], a[1]); gl.uniform2f(U.uB, b[0], b[1]);
-    gl.uniform1f(U.uRad, 0.04 + 0.16 * P.size); gl.uniform1f(U.uAmt, amt);
+    gl.uniform1f(U.uRad, rad); gl.uniform1f(U.uAmt, amt);
     gl.uniform1f(U.uKeep, Math.pow(0.95 + 0.048 * P.linger, dt * 60)); gl.uniform1f(U.uSpread, Math.min(0.35 + 0.6 * P.spread, 0.98));
     gl.uniform1f(U.uRise, P.rise * 0.9 * dt * 60); gl.uniform1f(U.uAsp, W / H); gl.uniform1f(U.uT, time);
     gl.drawArrays(gl.TRIANGLES, 0, 3); gl.bindFramebuffer(gl.FRAMEBUFFER, null); trail.cur = dst;
   }
-  function wander(t) { return [0.62 + 0.26 * Math.sin(t * 0.23) + 0.06 * Math.sin(t * 0.71), 0.5 + 0.28 * Math.sin(t * 0.19 + 1.1) + 0.05 * Math.cos(t * 0.57)]; }
+  function wander(t) {
+    if (mobile) { t *= 1.6; return [0.5 + 0.32 * Math.sin(t * 0.23) + 0.08 * Math.sin(t * 0.71), 0.5 + 0.34 * Math.sin(t * 0.19 + 1.1) + 0.06 * Math.cos(t * 0.57)]; }
+    return [0.62 + 0.26 * Math.sin(t * 0.23) + 0.06 * Math.sin(t * 0.71), 0.5 + 0.28 * Math.sin(t * 0.19 + 1.1) + 0.05 * Math.cos(t * 0.57)];
+  }
   function draw() {
     gl.viewport(0, 0, canvas.width, canvas.height); gl.useProgram(main.p); gl.bindVertexArray(vao);
     var U = main.u;
     gl.uniform2f(U.uRes, canvas.width, canvas.height); gl.uniform1f(U.uTime, time);
-    var cnt = P.minWidth > 0 ? Math.max(1, Math.min(P.count, Math.floor(W / P.minWidth))) : P.count;
+    var mw = E('minWidth'), cnt = mw > 0 ? Math.max(1, Math.min(P.count, Math.floor(W / mw))) : P.count;
+    var br = mobile && !reduce ? P.phone.breath * Math.sin(time * P.phone.breathSpeed * 1.6) : 0;   // phones: the whole field swells and settles
     gl.uniform1f(U.uCount, cnt); gl.uniform1f(U.uAngle, P.angle * Math.PI / 180); gl.uniform1f(U.uPersp, P.persp); gl.uniform1f(U.uCurves, P.curves);
     gl.uniform1f(U.uFreq, P.freq); gl.uniform1f(U.uCurvePhase, time * P.drift * 0.25); gl.uniform1f(U.uIrr, P.irregular); gl.uniform1f(U.uProfile, P.profile);
     gl.uniform1f(U.uCrease, P.crease); gl.uniform1f(U.uSeam, P.seam); gl.uniform1f(U.uShineFlip, P.shineRight ? 1 : 0);
     gl.uniform1f(U.uRelief, P.relief); gl.uniform1f(U.uShine, P.shine); gl.uniform1f(U.uSway, reduce ? 0 : P.sway); gl.uniform1f(U.uBend, P.bend); gl.uniform1f(U.uTiltHeat, P.tiltHeat);
     gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, trail.tex[trail.cur] || null); gl.uniform1i(U.uTrail, 0);
-    gl.uniform1f(U.uIntensity, P.intensity); gl.uniform1f(U.uAmbient, P.ambient); gl.uniform1f(U.uGrain, P.grain);
+    gl.uniform1f(U.uIntensity, E('intensity') * (1 + 0.22 * br)); gl.uniform1f(U.uAmbient, E('ambient') * (1 + 0.9 * br)); gl.uniform1f(U.uGrain, P.grain);
     gl.uniform3fv(U.uStops, STOPS); gl.uniform4fv(U.uWaves, waves);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
   }
@@ -167,21 +181,29 @@ void main() {
     idleMix += ((idle ? 1 : 0) - idleMix) * (1 - Math.exp(-dt / 0.8));
     var wv = wander(time), cur = [pointer.x / W, 1 - pointer.y / H];
     var tgt = pointer.inside ? [cur[0] + (wv[0] - cur[0]) * idleMix, cur[1] + (wv[1] - cur[1]) * idleMix] : wv;
-    stepTrail(dt, tgt, 1 - idleMix * (1 - P.idle));
+    stepTrail(dt, tgt, 1 - idleMix * (1 - E('idle')));
     draw();
     if (onScreen && !document.hidden) raf = requestAnimationFrame(frame);
   }
   function wake() { if (!raf && !reduce && onScreen && !document.hidden) { last = 0; raf = requestAnimationFrame(frame); } }
   function resize() {
-    var r = hero.getBoundingClientRect(); W = Math.max(1, r.width); H = Math.max(1, r.height);
+    var r = hero.getBoundingClientRect(), nw = Math.max(1, r.width), nh = Math.max(1, r.height);
+    if (trail.w && Math.abs(nw - W) < 1 && Math.abs(nh - H) < 1) return;   // phone address bar showing or hiding: same size, keep the heat
+    W = nw; H = nh;
     ratio = Math.min(devicePixelRatio || 1, mobile ? 1.5 : 2); canvas.width = Math.round(W * ratio); canvas.height = Math.round(H * ratio);
     trail.w = 0; follow = prevF = null; warm();
   }
   // first paint is never empty: run the wandering ember for a moment before the page is shown
-  function warm() { for (var i = 0; i < 70; i++) { time += 1 / 60; stepTrail(1 / 60, wander(time), P.idle * 1.4); } draw(); }
+  function warm() { for (var i = 0; i < 70; i++) { time += 1 / 60; stepTrail(1 / 60, wander(time), E('idle') * 1.4); } draw(); }
   hero.addEventListener('pointermove', function (e) { var r = hero.getBoundingClientRect(); pointer.x = e.clientX - r.left; pointer.y = e.clientY - r.top; pointer.inside = true; idleFor = 0; wake(); }, { passive: true });
   hero.addEventListener('pointerleave', function () { pointer.inside = false; });
-  canvas.addEventListener('pointerdown', function (e) { var r = hero.getBoundingClientRect(), o = wi * 4; waves[o] = (e.clientX - r.left) * ratio; waves[o + 1] = (H - (e.clientY - r.top)) * ratio; waves[o + 2] = time; waves[o + 3] = 1; wi = (wi + 1) % 4; wake(); });
+  ['pointerup', 'pointercancel'].forEach(function (t) { hero.addEventListener(t, function (e) { if (e.pointerType === 'touch') pointer.inside = false; }); });
+  canvas.addEventListener('pointerdown', function (e) { var r = hero.getBoundingClientRect(), o = wi * 4;
+    if (mobile && !reduce) {   // a tap releases a burst of heat right there; a drag then carries on from the finger
+      var pt = [(e.clientX - r.left) / W, 1 - (e.clientY - r.top) / H];
+      simPass(1 / 60, pt, pt, 0.05 + 0.22 * P.phone.tapSize, 0.9 * P.phone.tapHeat);
+      follow = pt.slice(); prevF = pt.slice(); pointer.x = e.clientX - r.left; pointer.y = e.clientY - r.top; pointer.inside = true; idleFor = 0;
+    } waves[o] = (e.clientX - r.left) * ratio; waves[o + 1] = (H - (e.clientY - r.top)) * ratio; waves[o + 2] = time; waves[o + 3] = 1; wi = (wi + 1) % 4; wake(); });
   var rt = 0; addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { resize(); wake(); }, 120); });
   document.addEventListener('visibilitychange', wake);
   if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { onScreen = es[0].isIntersecting; wake(); }).observe(hero);
