@@ -12,7 +12,7 @@ function emberBlinds(hero, canvas, opts) {
   var SCHEMA = { count: [1, 40, 19], minWidth: [0, 200, 77], angle: [-90, 90, 35], persp: [-1, 1, -0.78], curves: [0, 30, 9.7], freq: [0.5, 20, 4.2], drift: [0, 2, 0.81],
     irregular: [0, 1, 0.12], profile: [-1, 1, 0], crease: [0, 1.5, 0.87], seam: [0, 1, 0.12], relief: [0, 1, 1], shine: [0, 2, 0.31], sway: [0, 1, 0.4], bend: [0, 3, 0.6],
     tiltHeat: [0, 1.5, 0.76], size: [0, 1, 0.6], amount: [0, 2, 1], spread: [0, 1, 0.6], linger: [0, 1, 0.65], rise: [0, 1.5, 0.35], lag: [0, 1, 0.5], idle: [0, 1, 0.6],
-    intensity: [0.3, 2.5, 0.68], ambient: [0, 0.6, 0.03], grain: [0, 1.5, 0.45] };
+    intensity: [0.3, 2.5, 1.2], ambient: [0, 0.6, 0.06], grain: [0, 1.5, 0.45] };
   // phone profile: touch screens have no hover, so the field breathes on its own and a tap releases heat where it lands
   var PHONE = { minWidth: [0, 200, 38], size: [0, 1, 0.38], amount: [0, 3, 0.76], idle: [0, 2, 0.44], breath: [0, 1, 0.6], breathSpeed: [0.1, 2, 0.95],
     tapHeat: [0, 3, 0.85], tapSize: [0, 1, 0.56], intensity: [0.3, 2.5, 1.58], ambient: [0, 0.6, 0.07] };
